@@ -38,4 +38,4 @@ if __name__ == "__main__":
 
     df_tasks = read_as_df(args.tasks)
     df_output = run(df_tasks, args.model, args.ollama_host)
-    df_output.write_json(args.outfile)
+    df_output.write_ndjson(args.outfile)
