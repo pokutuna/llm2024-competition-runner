@@ -14,6 +14,16 @@ def run(df_tasks: pl.DataFrame, model: str, host: str | None) -> pl.DataFrame:
     return df_tasks.with_columns(outputs=pl.Series(outputs))
 
 
+def read_as_df(path: str) -> pl.DataFrame:
+    if path.endswith(".jsonl") or path.endswith(".ndjson"):
+        return pl.read_ndjson(path)
+    elif path.endswith(".parquet"):
+        return pl.read_parquet(path)
+    elif path.endswith(".csv"):
+        return pl.read_csv(path)
+    raise ValueError(f"Unsupported file format: {path}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--tasks", type=str, required=True)
@@ -22,10 +32,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--model",
         type=str,
-        default="hf.co/pokutuna/llm2024-gemma2:gemma2-9b-sft005-Q6_K.gguf",
+        default="hf.co/pokutuna/llm2024-gemma2:gemma2-9b-sft009-Q6_K.gguf",
     )
     args = parser.parse_args()
 
-    df_tasks = pl.read_ndjson(args.tasks)
+    df_tasks = read_as_df(args.tasks)
     df_output = run(df_tasks, args.model, args.ollama_host)
     df_output.write_json(args.outfile)
