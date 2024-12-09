@@ -10,7 +10,7 @@ def run(df_tasks: pl.DataFrame, model: str, host: str | None) -> pl.DataFrame:
     outputs = []
     for row in tqdm(df_tasks.to_dicts()):
         output = client.generate(model, row["input"])
-        outputs.append(output)
+        outputs.append(output.response)
     return df_tasks.with_columns(outputs=pl.Series(outputs))
 
 
