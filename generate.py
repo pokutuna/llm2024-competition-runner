@@ -93,7 +93,7 @@ if __name__ == "__main__":
         "--model",
         type=str,
         help="主に利用するモデル",
-        default="hf.co/pokutuna/llm2024-competition:gemma2-9b-v11-Q6_K.gguf",
+        default="hf.co/pokutuna/llm2024-competition:gemma2-9b-v11.gguf",
     )
     parser.add_argument(
         "--sub-model",
