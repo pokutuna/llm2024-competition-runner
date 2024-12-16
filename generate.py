@@ -38,14 +38,14 @@ def run(
     print("step2. Improve outputs for Japanese tasks")
     generated_examples: dict[int, list[str]] = {}
 
-    print("step2-1. Generate examples")
+    print(f"step2-1. Generate examples with {sub_model=}")
     # モデルの読み込み回数を減らすため先に全体舐めて例を作る
     for i, row in enumerate(tqdm(tasks)):
         if re.search(r"(?:ことわざ|諺|慣用句)", row["input"]):
             es = [generate(client, sub_model, row["input"]) for _ in range(3)]
             generated_examples[i] = es
 
-    print("step2-2. Generate outputs with examples")
+    print(f"step2-2. Generate outputs with examples {model=}")
     # 例を使ってメインモデルで再生成
     for i, row in enumerate(tqdm(tasks)):
         if i not in generated_examples:
