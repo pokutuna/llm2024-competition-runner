@@ -11,7 +11,11 @@ dependencies = [
 ]
 
 [tool.uv]
-dev-dependencies = ["mypy>=1.13.0", "ruff>=0.8.2"]
+dev-dependencies = [
+    "mypy>=1.13.0",
+    "ruff>=0.8.2",
+    "types-tqdm>=4.67.0.20241119",
+]
 
 
 [tool.mypy]
